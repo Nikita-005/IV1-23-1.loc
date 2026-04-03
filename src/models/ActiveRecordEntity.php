@@ -28,6 +28,18 @@ abstract class ActiveRecordEntity
         );
         return $entities ? $entities[0] : null;
     }
+    public static function findOneByColumn(string $columnName, $value): ?self
+    {
+        $db = Db::getInstance();
+        $result = $db->query(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE `' . $columnName . '` = :value LIMIT 1;',
+            [':value' => $value],
+            static::class);
+        if ($result === []) {
+            return null;
+        }
+        return $result[0];
+    }
     public function getRelectorProperties(): array
     {
         $reflector = new \ReflectionObject($this);
@@ -60,7 +72,9 @@ abstract class ActiveRecordEntity
             $index++;
         }
         $sql = 'UPDATE ' . static::getTableName() . ' SET ' . implode(', ', $columns2params) . ' WHERE id = ' . $this->id;
-        var_dump($sql);
+        // var_dump($sql);
+        // var_dump($columns2values);
+        // var_dump($columns2params);
         $db = Db::getInstance();
         $db->query($sql, $columns2values, static::class);
     }

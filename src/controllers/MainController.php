@@ -2,17 +2,12 @@
 
 namespace src\controllers;
 
-use src\views\View;
-use src\services\Db;
-
 class MainController extends Controller
 {
 
     public function main()
     {
-        $db = new Db();
-        $articles = $db->query('SELECT * FROM `articles`;');
-        $this->view->renderHtml('main/main.php', ['articles' => $articles]);
+       $this->view->renderHtml('main/main.php' );
     }
     public function sayHello($name)
     {

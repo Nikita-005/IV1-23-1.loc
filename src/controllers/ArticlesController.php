@@ -2,7 +2,6 @@
 
 namespace src\controllers;
 
-use src\exceptions\NotFoundException;
 use src\models\Article;
 use src\models\Users;
 use src\exceptions\NotFoundException;
