@@ -31,17 +31,33 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
+                            <a class="nav-link" href="/IV1-23-1.loc/articles">Статьи</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="#">О нас</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Профиль
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Регистрация</a></li>
-                                <li><a class="dropdown-item" href="#">Авторизация</a></li>
-                            </ul>
+                            <?php if($user): ?>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Пользователь: <?=  $user ? $user->getNickname() : '' ?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/IV1-23-1.loc/user/logout">Выход</a></li>
+                                </ul>
+                            <?php else: ?>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Профиль <?=  $user ? $user->getNickname() : '' ?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/IV1-23-1.loc/user/register">Регистрация</a></li>
+                                    <li><a class="dropdown-item" href="/IV1-23-1.loc/user/login">Авторизация</a></li>
+                                </ul>
+                            <?php endif ?>
+
+
                         </li>
                     </ul>
                     <form class="d-flex" role="search">

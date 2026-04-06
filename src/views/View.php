@@ -5,12 +5,15 @@ namespace src\views;
 class View
 {
     private $layout;
-
+    private $extraVars = [];
     public function __construct(string $layout)
     {
         $this->layout = $layout;
     }
-
+    public function setVar(string $name, $value)
+    {
+        $this->extraVars[$name] = $value;
+    }
     public function renderHtml(string $viewName, array $vars = [], int $code = 200)
     {
         http_response_code($code);
@@ -22,6 +25,7 @@ class View
     }
     public function renderFile(string $fileName, array $vars){
         extract($vars);
+        extract($this->extraVars);
         $fileName = __DIR__ . '/' . $fileName;
         if(file_exists($fileName)){
             ob_start();

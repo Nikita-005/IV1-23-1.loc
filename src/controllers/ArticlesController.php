@@ -5,6 +5,7 @@ namespace src\controllers;
 use src\models\Article;
 use src\models\Users;
 use src\exceptions\NotFoundException;
+use src\exceptions\UnauthorizedException;
 class ArticlesController extends Controller
 {
     public function index()
@@ -37,6 +38,9 @@ class ArticlesController extends Controller
     }
     public function add()
     {
+        if($this->user === null){
+            throw new UnauthorizedException();
+        }
         $article = new Article();
         $article->setName('Новая статья');
         $article->setText('Текст новой статьи');

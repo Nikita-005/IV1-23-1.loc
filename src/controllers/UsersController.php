@@ -32,12 +32,18 @@ class UsersController extends Controller
                 $user = User::login($_POST);
                 UsersAuthService::createToken($user);
                 header('Location: /IV1-23-1.loc');
-                return;
+                exit();
             } catch (InvalidArgumentException $e){
                 $this->view->renderHtml('users/login.php', ['error' => $e->getMessage()]);
                 return;
             }
         }
         $this->view->renderHtml('users/login.php');
+    }
+    public function logout()
+    {
+        setcookie('token', '', -1, '/', '', false, true);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
     }
 }
