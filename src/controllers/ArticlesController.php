@@ -6,11 +6,16 @@ use src\models\Article;
 use src\models\Users;
 use src\exceptions\NotFoundException;
 use src\exceptions\UnauthorizedException;
+use src\exceptions\InvalidArgumentException;
 class ArticlesController extends Controller
 {
     public function index()
     {
-        $articles = Article::findAll();
+        if(!empty($_GET['q'])){
+            $articles = Article::search($_GET['q']);
+        } else {
+            $articles = Article::findAll();
+        }
         $this->view->renderHtml('articles/index.php', ['articles' => $articles]);
     }
     public function view($id)
@@ -41,11 +46,17 @@ class ArticlesController extends Controller
         if($this->user === null){
             throw new UnauthorizedException();
         }
-        $article = new Article();
-        $article->setName('Новая статья');
-        $article->setText('Текст новой статьи');
-        $article->setAuthorId(1);
-        $article->save();
+        if(!empty($_POST)){
+            try {
+                $article = Article::create($_POST, $_FILES['img'], $this->user);
+            } catch (InvalidArgumentException $e){
+                $this->view->renderHtml('articles/add.php', ['error' => $e->getMessage()]);
+                return;
+            }
+
+        }
+
+        $this->view->renderHtml('articles/add.php');
     }
     public function delete($id)
     {

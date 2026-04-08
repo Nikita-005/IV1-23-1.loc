@@ -4,6 +4,11 @@
 <?php endif ?>
 <?php foreach($articles as $article):  ?>
     <h2><?= $article->getName() ?></h2>
+
+    <?php if($article->getImg() !== null)  : ?>
+        <img  class="img-fluid" width="100px" src="<?= $article->getImg() ?>" alt="">
+    <?php endif; ?>
+
     <p><?= $article->getText() ?></p>
     <p>Автор: <?= $article->getAuthor()->getNickname() ?></p>
     <a href="article/<?= $article->getId() ?>">Подробнее</a>
