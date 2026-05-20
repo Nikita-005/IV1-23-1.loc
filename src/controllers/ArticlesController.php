@@ -11,11 +11,7 @@ class ArticlesController extends Controller
 {
     public function index()
     {
-        if(!empty($_GET['q'])){
-            $articles = Article::search($_GET['q']);
-        } else {
-            $articles = Article::findAll();
-        }
+        $articles = Article::findAll();
         $this->view->renderHtml('articles/index.php', ['articles' => $articles]);
     }
     public function view($id)
@@ -34,11 +30,19 @@ class ArticlesController extends Controller
         if($article === null){
             throw new NotFoundException();
         }
-
-        if(!empty($_POST)){
-            $article->updateFromArray($_POST);
+        if($this->user === null){
+            throw new UnauthorizedException();
         }
-
+        if(!empty($_POST)){
+            try {
+                $article->updateFromArray($_POST, $_FILES['img'], $this->user);
+                header("Location: /iv1-23-1.loc/article/{$article->getId()}");
+                exit;
+            } catch (InvalidArgumentException $e){
+                $this->view->renderHtml('articles/edit.php', ['error' => $e->getMessage()]);
+                return;
+            }
+        }
         $this->view->renderHtml('articles/edit.php', ['article' => $article]);
     }
     public function add()
@@ -49,6 +53,8 @@ class ArticlesController extends Controller
         if(!empty($_POST)){
             try {
                 $article = Article::create($_POST, $_FILES['img'], $this->user);
+                header("Location: /iv1-23-1.loc/article/{$article->getId()}");
+                exit;
             } catch (InvalidArgumentException $e){
                 $this->view->renderHtml('articles/add.php', ['error' => $e->getMessage()]);
                 return;
@@ -64,6 +70,21 @@ class ArticlesController extends Controller
         if($article === null){
             throw new NotFoundException();
         }
+        if($this->user === null){
+            throw new UnauthorizedException();
+        }
         $article->delete();
+        header("Location: /iv1-23-1.loc/articles");
+        exit;
+    }
+    public function search()
+    {
+        if(empty($_GET['q'])){
+            $this->view->renderHtml('articles/search.php');
+            return;
+        } else {
+            $articles = Article::searchByName($_GET['q']);
+            $this->view->renderHtml('articles/search.php', ['articles' => $articles]);
+        }
     }
 }

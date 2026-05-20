@@ -2,15 +2,24 @@
 <?php if($user): ?>
     <p><a href="/IV1-23-1.loc/articles/add">Добавить статью</a></p>
 <?php endif ?>
-<?php foreach($articles as $article):  ?>
-    <h2><?= $article->getName() ?></h2>
 
-    <?php if($article->getImg() !== null)  : ?>
-        <img  class="img-fluid" width="100px" src="<?= $article->getImg() ?>" alt="">
-    <?php endif; ?>
+<ul class="row list-unstyled">
+    <?php foreach($articles as $article):  ?>
+        <li class="col-sm-6 col-md-4 col-xl-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title"><?= $article->getName() ?></h2>
 
-    <p><?= $article->getText() ?></p>
-    <p>Автор: <?= $article->getAuthor()->getNickname() ?></p>
-    <a href="article/<?= $article->getId() ?>">Подробнее</a>
-    <hr>
-<?php endforeach; ?>
+                    <?php if($article->getImg() !== null)  : ?>
+                        <img  class="img-fluid" src="<?= $article->getImg() ?>" alt="">
+                    <?php endif; ?>
+
+                    <p class="card-text"><?= $article->getText() ?></p>
+                    <p>Автор: <?= $article->getAuthor()->getNickname() ?></p>
+                    <a href="article/<?= $article->getId() ?>">Подробнее</a>
+                    <a href="article/<?= $article->getId() ?>/edit">Редактировать</a>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+</ul>

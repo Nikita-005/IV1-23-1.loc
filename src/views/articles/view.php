@@ -7,3 +7,8 @@
 <p><?= $article->getText() ?></p>
 
 <p>Автор: <?= $article->getAuthor()->getNickname() ?></p>
+
+<p>
+    <a href="article/<?= $article->getId() ?>/edit" class ="btn btn-primary">Редактировать</a>
+    <a href="article/<?= $article->getId() ?>/delete" class ="btn btn-primary">Удалить</a>
+</p>

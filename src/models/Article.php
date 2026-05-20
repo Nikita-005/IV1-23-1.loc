@@ -57,6 +57,7 @@ class  Article extends ActiveRecordEntity
 
     public static function create(array $fields, array $imgFile, User $author): Article
     {
+
         if(empty($fields['name'])){
             throw new \InvalidArgumentException('не передано название статьи');
         }
@@ -86,23 +87,37 @@ class  Article extends ActiveRecordEntity
     }
 
 
-    public function search(string $searchString)
-    {
-        $db = Db::getInstance();
-        $result = $db->query("SELECT * FROM `articles` WHERE `name` LIKE '%$searchString%'");
-        if($result === []){
-            return null;
-        } else {
-            return $result;
-        }
-    }
 
-    public function updateFromArray(array $fields)
+    public function updateFromArray(array $fields, array $imgFile):Article
     {
-        // $this->setName($fields['name']);
+       if(empty($fields['name'])){
+            throw new \InvalidArgumentException('не передано название статьи');
+        }
+        if(empty($fields['text'])){
+            throw new \InvalidArgumentException('не передан текст статьи');
+        }
+        if($imgFile['size'] > 10*1024*1024){
+            throw new \InvalidArgumentException('Слишком большой файл! Должно быть не более 10МБ');
+        }
+
         $this->name = $fields['name'];
         $this->text = $fields['text'];
 
+        if(!empty($imgFile['name'])){
+            $filePath = 'uploads/' . $imgFile['name'];
+            $this->img = $filePath;
+
+            if(!move_uploaded_file($imgFile['tmp_name'], $filePath)){
+                throw new InvalidArgumentException('Ошибка при загрузке файла');
+            }
+        }
+
         $this->save();
+        return $this;
+
+    }
+    public static function searchByName(string $searchString): ?array
+    {
+        return parent::search('name', $searchString);
     }
 }

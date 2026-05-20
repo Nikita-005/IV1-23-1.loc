@@ -60,8 +60,8 @@
 
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Поиск..." aria-label="Search" />
+                    <form class="d-flex" role="search" action="article/search">
+                        <input class="form-control me-2" type="search" placeholder="Поиск..." aria-label="Search" name="q" />
                         <button class="btn btn-dark" type="submit">Найти</button>
                     </form>
                 </div>
