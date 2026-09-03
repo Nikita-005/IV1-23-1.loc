@@ -39,7 +39,7 @@ class ArticlesController extends Controller
                 header("Location: /iv1-23-1.loc/article/{$article->getId()}");
                 exit;
             } catch (InvalidArgumentException $e){
-                $this->view->renderHtml('articles/edit.php', ['error' => $e->getMessage()]);
+                $this->view->renderHtml('articles/edit.php', ['article' => $article, 'error' => $e->getMessage()]);
                 return;
             }
         }

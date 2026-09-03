@@ -1,7 +1,7 @@
 <?php
 namespace src\models;
 
-use InvalidArgumentException;
+use src\Exceptions\InvalidArgumentException;
 use src\services\Db;
 class  Article extends ActiveRecordEntity
 {
@@ -59,13 +59,13 @@ class  Article extends ActiveRecordEntity
     {
 
         if(empty($fields['name'])){
-            throw new \InvalidArgumentException('не передано название статьи');
+            throw new InvalidArgumentException('не передано название статьи');
         }
         if(empty($fields['text'])){
-            throw new \InvalidArgumentException('не передан текст статьи');
+            throw new InvalidArgumentException('не передан текст статьи');
         }
         if($imgFile['size'] > 10*1024*1024){
-            throw new \InvalidArgumentException('Слишком большой файл! Должно быть не более 10МБ');
+            throw new InvalidArgumentException('Слишком большой файл! Должно быть не более 10МБ');
         }
 
         $article = new Article();
@@ -91,13 +91,13 @@ class  Article extends ActiveRecordEntity
     public function updateFromArray(array $fields, array $imgFile):Article
     {
        if(empty($fields['name'])){
-            throw new \InvalidArgumentException('не передано название статьи');
+            throw new InvalidArgumentException('не передано название статьи');
         }
         if(empty($fields['text'])){
-            throw new \InvalidArgumentException('не передан текст статьи');
+            throw new InvalidArgumentException('не передан текст статьи');
         }
         if($imgFile['size'] > 10*1024*1024){
-            throw new \InvalidArgumentException('Слишком большой файл! Должно быть не более 10МБ');
+            throw new InvalidArgumentException('Слишком большой файл! Должно быть не более 10МБ');
         }
 
         $this->name = $fields['name'];
