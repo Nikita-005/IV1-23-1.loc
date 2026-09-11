@@ -31,7 +31,7 @@ class UsersController extends Controller
             try {
                 $user = User::login($_POST);
                 UsersAuthService::createToken($user);
-                header('Location: /IV1-23-1.loc');
+                header('Location: ' . BASEURL . 'articles');
                 exit();
             } catch (InvalidArgumentException $e){
                 $this->view->renderHtml('users/login.php', ['error' => $e->getMessage()]);

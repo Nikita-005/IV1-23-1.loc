@@ -36,7 +36,7 @@ class ArticlesController extends Controller
         if(!empty($_POST)){
             try {
                 $article->updateFromArray($_POST, $_FILES['img'], $this->user);
-                header("Location: /iv1-23-1.loc/article/{$article->getId()}");
+                header('Location: ' . BASEURL . 'article/' . $article->getId());
                 exit;
             } catch (InvalidArgumentException $e){
                 $this->view->renderHtml('articles/edit.php', ['article' => $article, 'error' => $e->getMessage()]);
@@ -53,7 +53,7 @@ class ArticlesController extends Controller
         if(!empty($_POST)){
             try {
                 $article = Article::create($_POST, $_FILES['img'], $this->user);
-                header("Location: /iv1-23-1.loc/article/{$article->getId()}");
+                header('Location: ' . BASEURL . 'article/{$article->getId()}');
                 exit;
             } catch (InvalidArgumentException $e){
                 $this->view->renderHtml('articles/add.php', ['error' => $e->getMessage()]);
@@ -74,7 +74,7 @@ class ArticlesController extends Controller
             throw new UnauthorizedException();
         }
         $article->delete();
-        header("Location: /iv1-23-1.loc/articles");
+        header('Location: ' . BASEURL . 'articles');
         exit;
     }
     public function search()

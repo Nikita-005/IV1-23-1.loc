@@ -1,2 +1,2 @@
 <h1>Неоходимо авторизоваться</h1>
-<p><a href="/IV1-23-1.loc/user/login">Войти</a></p>
+<p><a href="user/login">Войти</a></p>

@@ -31,7 +31,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/IV1-23-1.loc/articles">Статьи</a>
+                            <a class="nav-link" href="articles">Статьи</a>
                         </li>
 
                         <li class="nav-item">
@@ -44,7 +44,7 @@
                                     Пользователь: <?=  $user ? $user->getNickname() : '' ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/IV1-23-1.loc/user/logout">Выход</a></li>
+                                    <li><a class="dropdown-item" href="user/logout">Выход</a></li>
                                 </ul>
                             <?php else: ?>
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -52,8 +52,8 @@
                                     Профиль <?=  $user ? $user->getNickname() : '' ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/IV1-23-1.loc/user/register">Регистрация</a></li>
-                                    <li><a class="dropdown-item" href="/IV1-23-1.loc/user/login">Авторизация</a></li>
+                                    <li><a class="dropdown-item" href="user/register">Регистрация</a></li>
+                                    <li><a class="dropdown-item" href="user/login">Авторизация</a></li>
                                 </ul>
                             <?php endif ?>
 

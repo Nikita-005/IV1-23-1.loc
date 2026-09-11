@@ -1,6 +1,6 @@
 <h1>Статьи</h1>
 <?php if($user): ?>
-    <p><a href="/IV1-23-1.loc/articles/add">Добавить статью</a></p>
+    <p><a href="articles/add">Добавить статью</a></p>
 <?php endif ?>
 
 <ul class="row list-unstyled">

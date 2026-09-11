@@ -1,4 +1,5 @@
 <?php
+const BASEURL = '/IV1-23-1.loc/';
 try {
     spl_autoload_register(function(string $className){
         require_once __DIR__.'/'.str_replace('\\','/',$className.'.php');
